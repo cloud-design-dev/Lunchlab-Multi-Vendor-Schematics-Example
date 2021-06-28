@@ -17,3 +17,8 @@ data "ibm_is_vpc" "lunchlab" {
 data "ibm_is_subnet" "lunchlab" {
   name = "lunchlab-zone-1-subnet"
 }
+
+data "digitalocean_ssh_key" "hyperion" {
+  name = "hyperion-2021"
+}
+
