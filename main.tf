@@ -33,7 +33,7 @@ module "ubuntu" {
 resource "ibm_is_floating_ip" "ubuntu" {
   name           = "ubuntu-fip"
   resource_group = data.ibm_resource_group.cde.id
-  target         = module.ubuntu.primary_network_interface_id
+  target         = module.ubuntu[0].primary_network_interface_id
 }
 
 resource "dnsimple_record" "vpc_instance" {
