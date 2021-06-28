@@ -1,7 +1,3 @@
-data "digitalocean_image" "haproxy" {
-  name = var.digital_ocean_image
-}
-
 data "ibm_is_zones" "mzr" {
   region = var.region
 }

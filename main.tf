@@ -1,15 +1,15 @@
-resource "digitalocean_droplet" "haproxy" {
-  image  = data.digitalocean_image.haproxy.id
-  name   = "haproxy"
-  region = "nyc2"
+resource "digitalocean_droplet" "openfaas" {
+  image  = var.digital_ocean_image
+  name   = "openfaas"
+  region = "nyc3"
   size   = "s-1vcpu-1gb"
   tags   = concat(var.tags, ["region:nyc2", "project:${var.name}", "provider:digitalocean", "type:droplet"])
 }
 
-resource "dnsimple_record" "do_haproxy" {
+resource "dnsimple_record" "openfaas" {
   domain = var.dnsimple_domain
-  name   = "haproxy"
-  value  = digitalocean_droplet.haproxy.ipv4_address
+  name   = "openfaas"
+  value  = digitalocean_droplet.openfaas.ipv4_address
   type   = "A"
   ttl    = 3600
 }
@@ -29,9 +29,9 @@ module "ubuntu" {
 }
 
 resource "ibm_is_floating_ip" "ubuntu" {
-  name              = "ubuntu-fip"
-  resource_group_id = data.ibm_resource_group.cde.id
-  target            = module.ubuntu.primary_network_interface_id
+  name           = "ubuntu-fip"
+  resource_group = data.ibm_resource_group.cde.id
+  target         = module.ubuntu.primary_network_interface_id
 }
 
 resource "dnsimple_record" "vpc_instance" {

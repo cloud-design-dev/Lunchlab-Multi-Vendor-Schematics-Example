@@ -13,9 +13,12 @@ variable "digital_ocean_token" {}
 variable "dnsimple_token" {}
 variable "dnsimple_account" {}
 variable "digital_ocean_image" {
-  default = "haproxywi-roxywi-7"
+  default = "openfaas-18-04"
 }
 
 variable "dnsimple_domain" {
   default = "cdetesting.com"
+}
+
+variable "name" {
 }
