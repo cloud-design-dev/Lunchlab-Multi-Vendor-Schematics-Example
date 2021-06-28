@@ -3,6 +3,7 @@ resource "digitalocean_droplet" "openfaas" {
   name   = "openfaas"
   region = "nyc3"
   size   = "s-1vcpu-1gb"
+  ssh_keys = [data.digitalocean_ssh_key.hyperion.id]
   tags   = concat(var.tags, ["region:nyc2", "project:${var.name}", "provider:digitalocean", "type:droplet"])
 }
 
