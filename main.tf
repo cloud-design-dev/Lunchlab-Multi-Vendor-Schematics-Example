@@ -15,13 +15,14 @@ resource "dnsimple_record" "openfaas" {
 }
 
 module "ubuntu" {
+  count = 4
   source            = "git::https://github.com/cloud-design-dev/IBM-Cloud-VPC-Instance-Module.git"
   vpc_id            = data.ibm_is_vpc.lunchlab.id
   subnet_id         = data.ibm_is_subnet.lunchlab.id
   ssh_keys          = [data.ibm_is_ssh_key.deploymentKey.id]
   allow_ip_spoofing = false
   resource_group_id = data.ibm_resource_group.cde.id
-  name              = "${var.name}-ubuntu"
+  name              = "${var.name}-ubuntu-${count.index +1}"
   zone              = data.ibm_is_zones.mzr.zones[0]
   security_groups   = [data.ibm_is_vpc.lunchlab.default_security_group]
   tags              = concat(var.tags, ["region:${var.region}", "project:${var.name}", "provider:ibmcloud", "zone:${data.ibm_is_zones.mzr.zones[0]}", "type:instance"])
